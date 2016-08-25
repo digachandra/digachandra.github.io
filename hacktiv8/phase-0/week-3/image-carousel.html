@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html class="animate-bg">
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="shortcut icon" href="../../../asset/image/logo/favicon.png" />
+	<link rel="stylesheet" href="../../../asset/css/dgchn.min.css">
+	<link rel="stylesheet" href="../../../asset/css/theme.hacktiv8.min.css">
+	<title>Hacktiv 8 • Hi! I'm Septhianto Diga</title>
+</head>
+<body>
+	<section class="lyt-theme-content">
+		<div class="container"><div class="col-sm-8 col-sm-offset-2">
+			<div class="content-title">
+				<h5 class="bold">Image Carousel</h5>
+			</div>
+			<div class="content-body">
+				<section>
+					<p>
+						We used to see in some website we found slider. Usually we found slider in home page. In this module we will learn how make a image slider with simple <code>jQuery</code>.
+					</p>
+				</section>
+				<hr />
+				<section>
+					<p><strong>Example:</strong></p>
+					<style>
+						ul#image-slider{
+							background:#DEDEDE;
+							list-style:none;
+							margin:0px;
+							padding:0px;
+							width:100%;
+							height:200px;
+						}
+						ul#image-slider li{
+							background-position:center center;
+							background-repeat:no-repeat;
+							background-size:cover;
+							width:100%;
+							height:inherit;
+						}
+						ul#image-slider li:not(.active){
+							display:none;
+						}
+						#image-slider-action{
+							margin:20px 0px;
+						}
+					</style>
+					<div id="slider-wrapper">
+						<ul id="image-slider">
+							<li style="background-image:url('https://source.unsplash.com/category/nature/1600x200');"></li>
+							<li style="background-image:url('https://source.unsplash.com/category/food/1600x200');"></li>
+							<li style="background-image:url('https://source.unsplash.com/category/technology/1600x200');"></li>
+						</ul>
+						<div id="image-slider-action" class="text-center">
+							<button id="btn-prev" class="btn btn-primary">Prev</button>
+							<button id="btn-next" class="btn btn-primary">Next</button>
+						</div>
+						<script type="text/javascript">
+							window.onload = function(e){
+								var slider_wrapper = $("#slider-wrapper");
+								var slider_image = $("ul#image-slider");
+								var slider_image_list = slider_image.find("li");
+								var slider_action = $("#image-slider-action");
+								var btn_prev = slider_action.find("#btn-prev");
+								var btn_next = slider_action.find("#btn-next");
+								var list_length = slider_image_list.length;
+								var list_index = 0;
+
+								slider_image_list.eq(list_index).addClass("active");
+								btn_prev.unbind().on("click", function(){
+									if(list_index == 0) list_index = list_length;
+									else list_index -= 1;
+									slider_image_list.removeClass("active");
+									slider_image_list.eq(list_index-1).addClass("active");
+								});
+								btn_next.unbind().on("click", function(){
+									if(list_index == list_length-1) list_index = 0;
+									else list_index += 1;
+									slider_image_list.removeClass("active");
+									slider_image_list.eq(list_index).addClass("active");
+								});
+							}
+						</script>
+					</div>
+					<p><code>HTML:</code></p>
+					<pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"slider-wrapper"</span><span class="nt">&gt;</span><br />   <span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">"image-slider"</span><span class="nt">&gt;</span><br />      <span class="nt">&lt;li</span> <span class="na">style=</span><span class="s">"background-image:url('your_image_url');"</span><span class="nt">&gt;</span><span class="nt">&lt;/li&gt;</span><br />      <span class="nt">&lt;li</span> <span class="na">style=</span><span class="s">"background-image:url('your_image_url');"</span><span class="nt">&gt;</span><span class="nt">&lt;/li&gt;</span><br />      <span class="nt">&lt;li</span> <span class="na">style=</span><span class="s">"background-image:url('your_image_url');"</span><span class="nt">&gt;</span><span class="nt">&lt;/li&gt;</span><br />   <span class="nt">&lt;/ul&gt;</span><br />   <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"image-slider-action"</span><span class="nt">&gt;</span><br />      <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"btn-prev"</span><span class="nt">&gt;</span>Prev<span class="nt">&lt;/button&gt;</span><br />      <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"btn-next"</span><span class="nt">&gt;</span>Next<span class="nt">&lt;/button&gt;</span><br />   <span class="nt">&lt;/div&gt;</span><br /><span class="nt">&lt;/div&gt;</span></code></pre>
+					<p><code>CSS:</code></p>
+					<pre><code class="language-html" data-lang="html"><span class="nt">ul</span><span class="s">#image-slider</span><span class="na">{</span><br />   <span class="na">background:</span><span class="s">#DEDEDE</span><span class="nt">;</span><br />   <span class="na">list-style:</span><span class="s">none</span><span class="nt">;</span><br />   <span class="na">margin:</span><span class="s">0px</span><span class="nt">;</span><br />   <span class="na">padding:</span><span class="s">0px</span><span class="nt">;</span><br />   <span class="na">width:</span><span class="s">100%</span><span class="nt">;</span><br />   <span class="na">height:</span><span class="s">200px</span><span class="nt">;</span><br /><span class="na">}</span><br /><span class="nt">ul</span><span class="s">#image-slider li</span><span class="na">{</span><br />   <span class="na">background-position:</span><span class="s">center center</span><span class="nt">;</span><br />   <span class="na">background-repeat:</span><span class="s">no-repeat</span><span class="nt">;</span><br />   <span class="na">background-size:</span><span class="s">cover</span><span class="nt">;</span><br />   <span class="na">width:</span><span class="s">100%</span><span class="nt">;</span><br />   <span class="na">height:</span><span class="s">inherit</span><span class="nt">;</span><br /><span class="na">}</span><br /><span class="nt">ul</span><span class="s">#image-slider li:not(.active)</span><span class="na">{</span><br />   <span class="na">display:</span><span class="s">none</span><span class="nt">;</span><br /><span class="na">}</span><br /><span class="nt">ul</span><span class="s">#image-slider-action</span><span class="na">{</span><br />   <span class="na">margin:</span><span class="s">20px 0px</span><span class="nt">;</span><br /><span class="na">}</span></code></pre>
+					<p><code>jQuery:</code></p>
+					<pre><code class="language-html" data-lang="html"><span class="nt">$(function(){</span><br />   <span class="nt">var</span> slider_wrapper <span class="nt">=</span> <span class="nt">$(</span><span class="s">"#slider-wrapper"</span><span class="nt">);</span><br />   <span class="nt">var</span> slider_image <span class="nt">=</span> <span class="nt">$(</span><span class="s">"#ul#image-slider"</span><span class="nt">);</span><br />   <span class="nt">var</span> slider_image_list <span class="nt">=</span> slider_image<span class="nt">.</span><span class="na">find(</span><span class="s">"li"</span><span class="na">)</span><span class="nt">;</span><br />   <span class="nt">var</span> slider_action <span class="nt">=</span> <span class="nt">$(</span><span class="s">"#image-slider-action"</span><span class="nt">);</span><br />   <span class="nt">var</span> btn_prev <span class="nt">=</span> btn_next<span class="nt">.</span><span class="na">find(</span><span class="s">"#btn-prev"</span><span class="na">)</span><span class="nt">;</span><br />   <span class="nt">var</span> btn_next <span class="nt">=</span> btn_next<span class="nt">.</span><span class="na">find(</span><span class="s">"#btn-prev"</span><span class="na">)</span><span class="nt">;</span><br />   <span class="nt">var</span> list_length <span class="nt">=</span> slider_image_list<span class="nt">.</span><span class="na">length</span><span class="nt">;</span><br />   <span class="nt">var</span> list_index <span class="nt">=</span> 0<span class="nt">;</span><br /><br />   slider_image_list<span class="nt">.</span><span class="na">eq(</span>list_index<span class="na">)</span><span class="nt">.</span><span class="na">addClass(</span><span class="s">"#btn-prev"</span><span class="na">)</span><span class="nt">;</span><br />   btn_prev<span class="nt">.</span><span class="na">unbind()</span><span class="nt">.</span><span class="na">on(</span><span class="s">"click"</span><span class="nt">,</span> <span class="nt">function(){</span><br />      <span class="nt">if(</span>list_index <span class="nt">==</span> 0<span class="nt">)</span> list_index <span class="nt">=</span> list_length<span class="nt">;</span><br />      <span class="nt">else</span> list_index <span class="nt">-=</span> 1<span class="nt">;</span><br />      slider_image_list<span class="nt">.</span><span class="na">removeClass(</span><span class="s">"active"</span><span class="nt">)</span><span class="nt">;</span><br />      slider_image_list<span class="nt">.</span><span class="na">eq(</span>list_index <span class="nt">-</span> 1<span class="nt">)</span><span class="nt">.</span><span class="na">addClass(</span><span class="s">"active"</span><span class="nt">)</span><span class="nt">;</span><br />   <span class="nt">}</span><br />      btn_next<span class="nt">.</span><span class="na">unbind()</span><span class="nt">.</span><span class="na">on(</span><span class="s">"click"</span><span class="nt">,</span> <span class="nt">function(){</span><br />      <span class="nt">if(</span>list_index <span class="nt">==</span> list_length <span class="nt">-</span> 1<span class="nt">)</span> list_index <span class="nt">=</span> 0<span class="nt">;</span><br />      <span class="nt">else</span> list_index <span class="nt">+=</span> 1<span class="nt">;</span><br />      slider_image_list<span class="nt">.</span><span class="na">removeClass(</span><span class="s">"active"</span><span class="nt">)</span><span class="nt">;</span><br />      slider_image_list<span class="nt">.</span><span class="na">eq(</span>list_index<span class="nt">)</span><span class="nt">.</span><span class="na">addClass(</span><span class="s">"active"</span><span class="nt">)</span><span class="nt">;</span><br />   <span class="nt">}</span><br /><span class="nt">}</span></code></pre>
+				</section>
+			</div>
+		</div></div>
+	</section>
+	<nav class="navbar navbar-default navbar-fixed-bottom">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#hacktiv8-menu" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><img src="../../asset/image/logo/logo.png" class="logo" /></a>
+			</div>
+			<div id="hacktiv8-menu" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="title"><a>Image Carousel</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+							Module List <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li class="dropdown-header">Phase-0 / Week-3</li>
+							<li><a href="rainbow-text.html">Rainbow Text</a></li>
+							<li><a href="image-carousel.html">Image Carousel</a></li>
+							<li><a href="number-guessing.html">Number Guessing</a></li>
+							<li><a href="text-styling.html">Text Styling</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="../../index.html">
+							<i class="fa fa-chevron-left" aria-hidden="true"></i> Phase List
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</body>
+</html>

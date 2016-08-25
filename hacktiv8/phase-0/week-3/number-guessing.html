@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="animate-bg">
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="shortcut icon" href="../../../asset/image/logo/favicon.png" />
+	<link rel="stylesheet" href="../../../asset/css/dgchn.min.css">
+	<link rel="stylesheet" href="../../../asset/css/theme.hacktiv8.min.css">
+	<title>Hacktiv 8 • Hi! I'm Septhianto Diga</title>
+</head>
+<body>
+	<section class="lyt-theme-content">
+		<div class="container"><div class="col-sm-8 col-sm-offset-2">
+			<div class="content-title">
+				<h5 class="bold">Number Guessing Game</h5>
+			</div>
+			<div class="content-body">
+				<section>
+					<p>
+						In this third module, we will learn how to use <code>jQUery</code> Event Listener. So we will make a simple guessing game and all the input we use the listener.
+					</p>
+				</section>
+				<hr />
+				<section>
+					<p><strong>Example:</strong></p>
+					<div class="text-center">
+						<style>
+							#sample-wrapper{
+								background:#eb5b29;
+								padding:10px 0px;
+							}
+							#sample-text{
+								margin:0px;
+							}
+							#sample-text span.active{
+								color:yellow;
+							}
+						</style>
+						<h2 id="sample-wrapper"><p id="sample-text" class="text-color-white">
+							<span> 1 </span><span> 2 </span><span> 3 </span><span> 4 </span><span> 5 </span>
+						</p></h2>
+						<div class="form-inline">
+							<button id="btn-start" class="btn btn-primary">Start Guessing</button>
+							<div id="action-wrapper" class="form-group hidden">
+								<label for="txt-guessing-number">Which number the yellow one stop?</label>
+								<input id="txt-guessing-number" type="number" class="form-control" placeholder="Guessing number">
+								<button id="btn-guess" class="btn btn-success">Guess</button>
+							</div>
+						</div>
+						<script type="text/javascript">
+							window.onload = function(e){ 
+								var txt_number = $("#txt-guessing-number");
+								var btn_start = $("#btn-start");
+								var btn_guess = $("#btn-guess");
+								var pointer_text = $("#sample-text");
+								var pointer_wrapper = $("#action-wrapper");
+								var guess_number_true;
+								var wrong_flag = 1;
+
+								function animate_number(){
+									var pointer_text_list = pointer_text.find("span");
+									var pointer_text_length = pointer_text_list.length;
+									var index_count = Math.floor(Math.random() * (pointer_text_list.length) + 1) + 1;
+									var loop_count = 5;
+
+									function animate(index, loop_index){
+										pointer_text.animate({"margin":0}, 100, function(){
+											pointer_text_list.removeClass("active");
+											pointer_text_list.eq(index-1).addClass("active");
+
+											if(loop_index < loop_count){
+												if(index < pointer_text_length){
+													animate(index + 1, loop_index);
+												} else if(index == pointer_text_length){
+													animate(0, loop_index + 1);
+												} else {
+													animate(index + 1, loop_index + 1);
+												}
+											} else if(loop_index == loop_count){
+												if(index < index_count){
+													animate(index + 1, loop_index);
+												} else if(index == index_count){
+													pointer_text_list.removeClass("active");
+													pointer_wrapper.removeClass("hidden");
+													guess_number_true = index;
+												}
+											}
+										});
+									}
+									animate(0, 1);
+								}
+
+								btn_start.unbind().on("click", function(){
+									btn_start.addClass("hidden");
+									animate_number();
+								});
+
+								btn_guess.unbind().on("click", function(){
+									var guess_number = txt_number.val().trim();
+
+									if(guess_number == guess_number_true){
+										btn_guess.removeClass("btn-danger").addClass("btn-success").text("Right!").attr("disabled", "disabled");
+										txt_number.attr("disabled", "disabled");
+									} else {
+										var wrong_text;
+										if(wrong_flag == 1){wrong_text = "Wrong!"; wrong_flag = 2;}
+										else if(wrong_flag == 2){wrong_text = "Wrong Again!"; wrong_flag = 1;}
+										btn_guess.removeClass("btn-success").addClass("btn-danger").text(wrong_text);
+									}
+								});
+							}
+						</script>
+					</div>
+					<p><code>HTML:</code></p>
+					<pre><code class="language-html" data-lang="html"><span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"sample-wrapper"</span><span class="nt">&gt;</span><br />   <span class="nt">&lt;p</span> <span class="na">id=</span><span class="s">"sample-text"</span><span class="nt">&gt;</span><br />      <span class="nt">&lt;span</span><span class="nt">&gt;</span> 1 <span class="nt">&lt;/span</span><span class="nt">&gt;</span><br />      <span class="nt">&lt;span</span><span class="nt">&gt;</span> 2 <span class="nt">&lt;/span</span><span class="nt">&gt;</span><br />      <span class="nt">&lt;span</span><span class="nt">&gt;</span> 3 <span class="nt">&lt;/span</span><span class="nt">&gt;</span><br />      <span class="nt">&lt;span</span><span class="nt">&gt;</span> 4 <span class="nt">&lt;/span</span><span class="nt">&gt;</span><br />      <span class="nt">&lt;span</span><span class="nt">&gt;</span> 5 <span class="nt">&lt;/span</span><span class="nt">&gt;</span><br />   <span class="nt">&lt;/p&gt;</span><br /><span class="nt">&lt;/h2&gt;</span><br /><span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"btn-start"</span><span class="nt">&gt;</span>Start Guessing<span class="nt">&lt;/button&gt;</span><br /><span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"txt-guessing-number"</span> <span class="na">type=</span><span class="s">"number"</span> <span class="nt">/&gt;</span><br /><span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"btn-guess"</span><span class="nt">&gt;</span>Guess<span class="nt">&lt;/button&gt;</span></code></pre>
+					<p><code>jQuery:</code></p>
+					<pre><code class="language-html" data-lang="html"><span class="nt">$(function(){</span><br />   <span class="nt">var</span> txt_number <span class="nt">=</span> <span class="nt">$(</span><span class="s">"#txt-guessing-number"</span><span class="nt">);</span><br />   <span class="nt">var</span> btn_start <span class="nt">=</span> <span class="nt">$(</span><span class="s">"#btn-start"</span><span class="nt">);</span><br />   <span class="nt">var</span> btn_guess <span class="nt">=</span> <span class="nt">$(</span><span class="s">"#btn-guess"</span><span class="nt">);</span><br />   <span class="nt">var</span> pointer_text <span class="nt">=</span> <span class="nt">$(</span><span class="s">"#sample-text"</span><span class="nt">);</span><br />   <span class="nt">var</span> guess_number_true<span class="nt">;</span><br /><br />   btn_start<span class="nt">.</span><span class="na">unbind()</span><span class="nt">.</span><span class="na">on(</span><span class="s">"click"</span><span class="nt">,</span> <span class="nt">function(){</span><br />      <span class="nt">var</span> pointer_text_list <span class="nt">=</span> pointer_text<span class="nt">.</span><span class="na">find(</span><span class="s">"span"</span><span class="na">)</span><span class="nt">;</span><br />      <span class="nt">var</span> pointer_text_length <span class="nt">=</span> pointer_text<span class="nt">.</span><span class="na">length</span><span class="nt">;</span><br />      <span class="nt">var</span> guess_number_true <span class="nt">=</span> <span class="nt">Math.</span><span class="na">floor(</span><span class="nt">Math.</span><span class="na">random()</span> <span class="nt">*</span> <span class="nt">(</span>pointer_text_list<span class="nt">.</span><span class="na">length</span><span class="nt">)</span> <span class="nt">+</span> 1<span class="na">)</span><span class="nt">;</span><br />   <span class="nt">}</span><br /><br />   btn_guess<span class="nt">.</span><span class="na">unbind()</span><span class="nt">.</span><span class="na">on(</span><span class="s">"click"</span><span class="nt">,</span> <span class="nt">function(){</span><br />      <span class="nt">var</span> guess_number <span class="nt">=</span> pointer_text<span class="nt">.</span><span class="na">val()</span><span class="nt">.</span><span class="na">trim()</span><span class="nt">;</span><br />      <span class="nt">if(</span>guess_number <span class="nt">==</span> guess_number_true<span class="nt">){</span><br />         <span class="na">alert(</span><span class="s">"Right!"</span><span class="na">)</span><span class="nt">;</span><br />      <span class="nt">} else {</span><br />         <span class="na">alert(</span><span class="s">"Wrong!"</span><span class="na">)</span><span class="nt">;</span><br />      <span class="nt">}</span><br />   <span class="nt">}</span><br /><span class="nt">}</span></code></pre>
+				</section>
+			</div>
+		</div></div>
+	</section>
+	<nav class="navbar navbar-default navbar-fixed-bottom">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#hacktiv8-menu" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><img src="../../asset/image/logo/logo.png" class="logo" /></a>
+			</div>
+			<div id="hacktiv8-menu" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="title"><a>Number Guessing Game</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+							Module List <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li class="dropdown-header">Phase-0 / Week-3</li>
+							<li><a href="rainbow-text.html">Rainbow Text</a></li>
+							<li><a href="image-carousel.html">Image Carousel</a></li>
+							<li><a href="number-guessing.html">Number Guessing</a></li>
+							<li><a href="text-styling.html">Text Styling</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="../../index.html">
+							<i class="fa fa-chevron-left" aria-hidden="true"></i> Phase List
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</body>
+</html>
