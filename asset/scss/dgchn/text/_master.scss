@@ -1,0 +1,38 @@
+@import 'variable.scss';
+
+// Default Font Size : 14px
+
+h1.bold, h2.bold, h3.bold, h4.bold, h5.bold, h6.bold, span.bold, p.bold, a.bold{
+	font-weight:bold;
+}
+a{
+	outline:none !important;
+}
+h1{font-size:2.5714285714285716em;} // 36px
+h2{font-size:2.142857142857143em;} // 30px
+h3{font-size:1.7142857142857142em;} // 24px
+h4{font-size:1.2857142857142858em;} // 18px
+h5{font-size:1em;} // 14px
+h6{font-size:0.8571428571428571em;} // 12px
+span, p, a{font-size:1em;} // 14px
+
+h1.bold{font-size:5em;} // 70px
+h2.bold{font-size:4.571428571428571em;} // 64px
+h3.bold{font-size:4.142857142857143em;} // 58px
+h4.bold{font-size:3.7142857142857144em;} // 52px
+h5.bold{font-size:2.5714285714285716em;} // 36px
+h6.bold{font-size:1.9285714285714286em;} // 27px
+
+@include max-phone(){
+	h1{font-size:2.142857142857143em;} // 30px
+	h2{font-size:1.7142857142857142em;} // 24px
+	h3{font-size:1.2857142857142858em;} // 18px
+	h4{font-size:1em;} // 14px
+	h5{font-size:0.8571428571428571em;} // 12px
+	h6{font-size:0.7142857142857143em;} // 10px
+	span, p, a{font-size:0.8571428571428571em;}	 // 12px
+}
+
+.text-color-white{
+	color:$base-color-shade-1;
+}
