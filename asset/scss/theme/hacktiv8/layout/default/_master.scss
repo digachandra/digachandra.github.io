@@ -1,0 +1,10 @@
+@import 'variable.scss';
+
+.lyt-theme-content{
+	background:white;
+	margin-top:5px;
+	padding:100px 0px;
+	.content-title{
+		color:$theme_color_main_1;
+	}
+}
